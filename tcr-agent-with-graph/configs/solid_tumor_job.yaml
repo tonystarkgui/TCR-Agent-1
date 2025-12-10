@@ -1,0 +1,26 @@
+project_name: "Project_Solid_Tumor_MAGE_A4"
+
+target:
+  name: "MAGE-A4" # (Solid Tumor Antigen)
+  sequence: "GVYDGREHTV"
+  context: "Immunosuppressive TME"
+
+design_parameters:
+  num_sequences: 100 # Keep this small for the demo run
+  model_version: "lstm_gen_v2"
+
+# THE VALUE ADD: Filters that prevent Exhaustion & ensure TME survival
+tme_constraints:
+  - constraint: "tonic_signaling_risk"
+    threshold: 0.5  # Max allowed hydrophobicity (proxy for aggregation)
+  - constraint: "isoelectric_point"
+    range: [5.5, 8.5] # Avoid extreme charges (solubility in acidic TME)
+  - constraint: "motif_ban"
+    motifs: ["NG", "NS"] # Deamidation sites (unstable in TME)
+
+evo2_parameters:
+  top_k: 4
+  temperature: 1.0
+  max_tokens: 128
+
+bert_model_path: "wukevin/tcr-bert" # Public TCR-BERT model

@@ -1,0 +1,11 @@
+project_name: "MAGE-A4_Design"
+target:
+  name: "MAGE-A4"
+design_parameters:
+  num_sequences: 100
+tme_constraints:
+  - constraint: "tonic_signaling_risk"
+    threshold: 0.5
+evo2_parameters:
+  top_k: 4
+  max_tokens: 128
